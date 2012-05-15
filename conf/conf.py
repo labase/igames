@@ -12,4 +12,5 @@ import sys
 JEPPETO_PATH = "/home/kaiser/workspace/jeppeto"
 
 
-sys.path.append(JEPPETO_PATH)
+def add_jeppeto_into_path():
+    sys.path.append(JEPPETO_PATH)

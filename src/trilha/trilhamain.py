@@ -17,6 +17,14 @@ __author__  = "Carlo E. T. Oliveira (carlo@ufrj.br) $Author: cetoli $"
 __version__ = "0.1 $Revision$"[10:-1]
 __date__    = "2012/05/11 $Date$"
 
+
+if __name__ == '__main__':
+    import sys; 
+    sys.path.append('../../conf/')
+    import conf
+    conf.add_jeppeto_into_path()
+
+
 from jeppeto.gui_decorator import Item, ToolBox, BlockItem, Composable, DropDecorator
 import json
 import logging

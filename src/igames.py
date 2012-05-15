@@ -6,6 +6,7 @@
 # general confs; adds jeppeto into path
 import sys; sys.path.append('../conf')
 import conf
+conf.add_jeppeto_into_path()
 
 
 # games
