@@ -18,9 +18,9 @@ class IGames():
             # waits for user choose a game
             # for a while, forcing trilha game
             self.game = t
-            self.start()
+            self.start_game()
 
-    def start(self):
+    def start_game(self):
         self.game.main()
         # back to menu after playing
         self.menu()
