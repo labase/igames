@@ -10,7 +10,7 @@ conf.add_jeppeto_into_path()
 
 
 # games
-from trilha import trilhamain as t
+from trilha import desktop_main as t
 
 
 class IGames():
