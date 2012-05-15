@@ -1,0 +1,3 @@
+title=Trainz
+author=Carlo Oliveira
+orientation=portrait
