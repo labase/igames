@@ -263,7 +263,7 @@ class Actor(Composite):
         self.local = self.container = owner
         logger.debug("tactor move, not clone,  s,o,i %s , %s, %s", self,  owner, self.local.items)
         return self
-    
+
     def paste(self,x,y,item):
         if item is self:
             logger.debug("tactor rejecting self, %s , %s", self,  item)
