@@ -26,6 +26,7 @@ if __name__ == '__main__':
     __meta__.add_jeppeto_into_path()
 GAME_PATH = os.path.dirname(os.path.abspath(__file__))
 IMAGE_PATH = os.path.join(GAME_PATH, 'public', 'image')
+JPT_PATH = os.path.join(GAME_PATH, 'jpt.jpt')
 
 from jeppeto.gui_decorator import Item, ToolBox, BlockItem, Composable, DropDecorator
 import json
@@ -417,8 +418,10 @@ class App(Locus, ToolBox):
         self.gui.create_game(self, name)
 
     def setup(self, readfile = None, writefile = None):
-        readfile = readfile or file('jpt.jpt','r')
-        writefile = writefile or file('jpt.jpt','w')
+        if not os.path.exists(JPT_PATH): 
+            open(JPT_PATH, 'w').close()
+        readfile = readfile or file(JPT_PATH,'r')
+        writefile = writefile or file(JPT_PATH,'w')
         self.sink = writefile
         Composite.save = self.saver
 
