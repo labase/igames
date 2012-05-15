@@ -22,7 +22,7 @@ class IGames():
     def start_game(self):
         self.game.main()
         # back to menu after playing
-        self.menu()
+        self.show_menu()
 
 
 if __name__ == '__main__':
