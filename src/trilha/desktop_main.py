@@ -20,7 +20,7 @@ __date__    = "2012/05/11 $Date$"
 
 import os
 if __name__ == '__main__':
-    import os, sys
+    import sys
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     import __meta__
     __meta__.add_jeppeto_into_path()
