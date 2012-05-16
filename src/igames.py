@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
     File: igames.py
     Description: Intelligent games written with Jeppeto
