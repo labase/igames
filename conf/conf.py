@@ -4,4 +4,4 @@
 """
 
 
-JEPPETO_PATH = "/home/kaiser/workspace/jeppeto"
+JEPPETO_PATH = "/home/kaiser/workspace/labase/jeppeto"
