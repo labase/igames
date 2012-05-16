@@ -35,14 +35,18 @@ class App(Locus):
     def start(self, name):
         self.gui.create_game(self, name)
 
+    def create(self):
+        building = self.gui.image('building.png', 0, 40, 300, 400)
+
 
 def main():
     from jeppeto import pygame_factory as pg
     pg.IMAGE_PATH = IMAGE_PATH
     pg.JPT_PATH = GAME_PATH
-    pg.CANVASH = 600
+    pg.CANVASW = 640
+    pg.CANVASH = 480
     main = App(pg.GUI())
-    main.start('Building')
+    main.start('Building in fire')
     return None
 
 
