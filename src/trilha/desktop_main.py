@@ -51,7 +51,6 @@ VP = [[BY,0,WAY,BLOCK]]
 
 logger = logging.getLogger('jeppeto_main')
 logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.CRITICAL)
 logger.setLevel(logging.DEBUG)
 
 PRIMESXYZ = (5,11,111)
