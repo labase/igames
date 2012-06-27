@@ -55,10 +55,6 @@ class Graphic:
         self.rect = self.surface.get_rect()
         drawing_queue.append(self)
 
-    def move(self, pos=(0, 0)):
-        self.pos = pos
-        redraw_queue()
-
     def __str__(self):
         return "<img: %s, pos: %s>" % (self.path, self.pos)
 
