@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python 
 # -*- coding: UTF8 -*-
 """
 ############################################################
@@ -18,50 +18,42 @@ __version__ = "0.1 $Revision$"[10:-1]
 __date__    = "2012/05/11 $Date$"
 
 
-import os
+import os, sys
 if __name__ == '__main__':
-    import sys
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     import __meta__
     __meta__.add_jeppeto_into_path()
-GAME_PATH = os.path.dirname(os.path.abspath(__file__))
-IMAGE_PATH = os.path.join(GAME_PATH, 'public', 'image')
-JPT_PATH = os.path.join(GAME_PATH, 'jpt.jpt')
-
-from jeppeto.gui_decorator import Item, ToolBox, BlockItem, Composable, DropDecorator
+from jeppeto.gui_decorator import ToolBox, Composable, DropDecorator
 import json
 import logging
-BLOCK = 80
-SIDE = 400/BLOCK
-PATH = '#330000'
-SAND = '#ff9966'
-WAY = BLOCK //5
-BY = BLOCK//2 - WAY//2
-BZ = BLOCK//2 + WAY//2
-UT = [[0,BY,BLOCK,WAY],[BY,BY,WAY,BLOCK]]
-DT = [[0,BY,BLOCK,WAY],[BY,0,WAY,BLOCK//2]]
-LT = [[BY,0,WAY,BLOCK],[BY,BY,BLOCK,WAY]]
-RT = [[BY,0,WAY,BLOCK],[0,BY,BLOCK//2,WAY]]
-UL = [[0,BY,BLOCK//2,WAY],[BY,BY,WAY,BLOCK]]
-DL = [[0,BY,BZ,WAY],[BY,0,WAY,BLOCK//2]]
-LL = [[BY,0,WAY,BZ],[BY,BY,BLOCK,WAY]]
-RL = [[BY,BY,BLOCK,WAY],[BY,BY,WAY,BLOCK]]
-HP = [[0,BY,BLOCK,WAY]]
-VP = [[BY,0,WAY,BLOCK]]
-
 logger = logging.getLogger('jeppeto_main')
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
-PRIMESXYZ = (5,11,111)
-SATURATE = 256
-FIELDS = 'items,color,origin'.split(',')
 
-HEX6 = '#%06x'
+BLOCK = 80
+SIDE = 400/BLOCK
+PATH = '#330000'
+SAND = '#ff9966'
+WAY = BLOCK // 5
+BY = BLOCK // 2 - WAY // 2
+BZ = BLOCK // 2 + WAY // 2
+UT = [[0, BY, BLOCK, WAY], [BY, BY, WAY, BLOCK]]
+DT = [[0, BY, BLOCK, WAY], [BY, 0, WAY, BLOCK // 2]]
+LT = [[BY, 0, WAY, BLOCK], [BY, BY, BLOCK, WAY]]
+RT = [[BY, 0, WAY, BLOCK], [0, BY, BLOCK // 2, WAY]]
+UL = [[0, BY, BLOCK // 2, WAY], [BY, BY, WAY, BLOCK]]
+DL = [[0, BY, BZ, WAY], [BY, 0, WAY, BLOCK // 2]]
+LL = [[BY, 0, WAY, BZ], [BY, BY, BLOCK, WAY]]
+RL = [[BY, BY, BLOCK, WAY], [BY, BY, WAY, BLOCK]]
+HP = [[0, BY, BLOCK, WAY]]
+VP = [[BY, 0, WAY, BLOCK]]
 BLACK, WHITE , GREY , NAVWHITE ='#000000', '#FFFFFF', '#A0A0A0', '#FFDFB0'
 BLOCK_SIZE = 50
-BP = BLOCK_PADDING = 10
-X,Y = (0,1)
+
+GAME_PATH = os.path.dirname(os.path.abspath(__file__))
+IMAGE_PATH = os.path.join(GAME_PATH, 'public', 'image')
+JPT_PATH = os.path.join(GAME_PATH, 'jpt.jpt')
 
 
 class _Nenhures:
@@ -404,8 +396,6 @@ class Mover(Deleter):
 
 
 class App(Locus, ToolBox):
-    """ Engenho de Criação de Jogos educacionais
-    """
     def remove(self,comp):
         pass
 
@@ -432,7 +422,7 @@ class App(Locus, ToolBox):
         self.color = None
         self.xy = self.origin = (750, 550)
         self.tool = self.build(Tools(self.gui,self),(0,0))
-        self.icon = app = self.gui.image( None,0, 0, 600, 600, cl = '#006633')
+        self.icon = app = self.gui.image(None, 0, 0, 600, 600, cl='#006633')
         self.locus_tool = self.build(Locus(self.gui,self))
         self.tool._create(600,0)
         self.actor_tool = self.build(Actor(self.gui,self))
@@ -450,14 +440,13 @@ class App(Locus, ToolBox):
             x,y = 100 + ind //SIDE *BLOCK, 100 + ind %SIDE *BLOCK
             self.locus_tool._create(x,y)
         DropDecorator(self, self.scrap)
-        h1 = self.gui.image( 'casinha.gif',0, 0, BLOCK, BLOCK)
-        h2 = self.gui.image( 'casinha.gif',0, 0, BLOCK, BLOCK)
-        h3 = self.gui.image( 'casinha.gif',0, 0, BLOCK, BLOCK)
+        h1 = self.gui.image('casinha.gif',0, 0, BLOCK, BLOCK)
+        h2 = self.gui.image('casinha.gif',0, 0, BLOCK, BLOCK)
+        h3 = self.gui.image('casinha.gif',0, 0, BLOCK, BLOCK)
         h1.rotate(-90)
         h1.translate(100+SIDE*BLOCK, 100+2*BLOCK)
         h2.rotate(90)
         h2.translate(100-BLOCK, 100+2*BLOCK)
-        #h3.rotate(180)
         h3.translate(100+2*BLOCK, 100-BLOCK)
         self.setup()
         return self.icon
@@ -481,57 +470,15 @@ class App(Locus, ToolBox):
         #item.revert()
 
     def saver(self, block):
-        #return
         self.sink.write(json.dumps(block, indent=2, default= lambda o: o.convert())+',')
         self.sink.flush()
-
-class Loader:
-    def __init__(self, owner, readfile):
-        json_string = readfile.read()
-        if len(json_string) < 4: return
-
-        json_string = '['+ json_string[:-1]+']'
-        #print json_string[-20:]
-        CLASS_DICT={}
-        self.ELEMENT_DICT={-1:owner}
-        python_object_list = []
-        icon = owner.gui.image( None,-100, -100, 1, 1, cl = '#FFDFB6')
-        try:
-            python_object_list = json.loads(json_string)
-        except:
-            raise Exception("Problem reading from JSON stream")
-        def flyweight(clazz):
-            if clazz in CLASS_DICT:
-                return CLASS_DICT[clazz]
-            else:
-                cl = CLASS_DICT[clazz] = globals()[clazz](gui = owner.gui, icon=icon)
-                return cl
-        def instantiate(python_object,its=[],col=0,ori=0,con=0,cls=0,ref=0):
-            clazz = flyweight(cls)
-            owner = self.element_pool(con or -1)
-            container_nowhere_when_app = not con and NENHURES() or owner
-            python_object['con']= container_nowhere_when_app
-            #print 'owner', own, owner
-            element = clazz.load(owner,self,**python_object)
-            #print 'element',element
-            self.element_pool(col, element)
-        [instantiate(po,**po) for po in python_object_list if po]
-        readfile.close()
-        #for cls, instance in CLASS_DICT.items() : instance.delete()
-
-    def element_pool(self,name,clazz=None):
-        if name in self.ELEMENT_DICT:
-            return self.ELEMENT_DICT[name]
-        else:
-            cl = self.ELEMENT_DICT[name] = clazz
-            return cl
 
 
 def main():
     from jeppeto import pygame_factory as pg
     pg.IMAGE_PATH = IMAGE_PATH
     pg.JPT_PATH = GAME_PATH
-    pg.CANVASH = 600
+    (pg.CANVASW, pg.CANVASH) = (800, 600)
     main = App(pg.GUI())
     main.start('Trilha')
     return None
