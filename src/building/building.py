@@ -15,7 +15,6 @@ import sys
 import time
 import pygame
 import traceback
-from helpers import sprite
 
 
 CURRENT_PATH  = os.path.dirname(os.path.abspath(__file__))
@@ -143,7 +142,6 @@ class Game:
             self.basket2 = Basket("basket.png", (634, 345))
             self.basket2.set_sense(0)
             self.current_clicked = None
-            self.fire = sprite.AnimatedSprite(sprite.load_sliced_sprites(16, 16, os.path.join(IMG_PATH, "fire.png")))
 
             # first drawings
             self.background.draw(self.screen)
@@ -229,8 +227,6 @@ class Game:
         try:
             self.ready_to_move = False
             while True:
-                self.fire.update(200)
-                print self.fire._delay
                 self.process_events()
                 if self.ready_to_move:
                     self.move_baskets()
